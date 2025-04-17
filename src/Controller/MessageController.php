@@ -77,4 +77,16 @@ final class MessageController extends AbstractController
         }
         return $this->redirectToRoute('messages');
     }
+
+    #[Route('/show/{id}', name: 'show_message')]
+    public function show(Message $message): Response
+    {
+        if(!$message)
+        {
+            return $this->redirectToRoute('messages');
+        }
+        return $this->render('message/show.html.twig', [
+            'message' => $message,
+        ]);
+    }
 }

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <p><strong>{{ message.content }}</strong></p>
+    <p>Created at : {{ message.createdAt|date("d/m/Y") }}</p>
+
+    <a href="{{ path('messages') }}">Retour</a>
+    <hr>
+
+
+
+{% endblock %}
