@@ -8,6 +8,18 @@
     <a href="{{ path('messages') }}">Retour</a>
     <hr>
 
+    {{ form_start(formComment) }}
+    {{ form_widget(formComment.content) }}
+    <button type="submit">Send</button>
+    {{ form_end(formComment) }}
 
+
+
+        {% for comment in message.comments %}
+
+            <p>At : {{ comment.createdAt|date("m/d") }}</p>
+            <p><strong>{{ comment.content }}</strong></p>
+
+        {% endfor %}
 
 {% endblock %}

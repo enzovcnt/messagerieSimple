@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Message;
+use App\Form\CommentType;
 use App\Form\MessageType;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -79,14 +81,31 @@ final class MessageController extends AbstractController
     }
 
     #[Route('/show/{id}', name: 'show_message')]
-    public function show(Message $message): Response
+    public function show(Message $message, Request $request, EntityManagerInterface $manager): Response
     {
         if(!$message)
         {
             return $this->redirectToRoute('messages');
         }
+
+        $comment = new Comment();
+
+        $formComment = $this->createForm(CommentType::class, $comment);
+        $formComment->handleRequest($request);
+
+        if ($formComment->isSubmitted() && $formComment->isValid()) {
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setMessages($message);
+            $manager->persist($comment);
+            $manager->flush();
+            return $this->redirectToRoute('show_message', ['id' => $message->getId()]);
+        }
+
+
         return $this->render('message/show.html.twig', [
             'message' => $message,
+            'comment' => $comment,
+            'formComment' => $formComment->createView(),
         ]);
     }
 }
