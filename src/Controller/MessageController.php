@@ -43,4 +43,25 @@ final class MessageController extends AbstractController
             'formMessage' => $formMessage->createView(),
         ]);
     }
+
+    #[Route('/edit/{id}', name: 'edit_message')]
+    public function edit(Message $message, Request $request, EntityManagerInterface $manager): Response
+    {
+
+        if(!$message)
+        {
+            return $this->redirectToRoute('messages');
+        }
+
+        $formMessage = $this->createForm(MessageType::class, $message);
+        $formMessage->handleRequest($request);
+        if ($formMessage->isSubmitted() && $formMessage->isValid()){
+            $manager->persist($message);
+            $manager->flush();
+            return $this->redirectToRoute('messages');
+        }
+        return $this->render('message/edit.html.twig', [
+            'formMessage' => $formMessage->createView(),
+        ]);
+    }
 }

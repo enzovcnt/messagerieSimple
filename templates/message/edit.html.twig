@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+    <p>Modifier</p>
+
+    {{ form_start(formMessage) }}
+    {{ form_widget(formMessage.content) }}
+    <button type="submit">Send</button>
+    {{ form_end(formMessage) }}
+
+
+{% endblock %}
