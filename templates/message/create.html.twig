@@ -3,11 +3,14 @@
 
 
 {% block body %}
+
+
+
     <p>écrire</p>
 
     {{ form_start(formMessage) }}
     {{ form_widget(formMessage.content) }}
-    <button type="submit">Send</button>
+    <button type="submit" class="btn btn-success">Send</button>
     {{ form_end(formMessage) }}
 
 
