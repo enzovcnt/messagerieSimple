@@ -8,8 +8,9 @@
         <p><strong>{{ message.content }}</strong></p>
         <p>Created at : {{ message.createdAt|date("d/m/Y") }}</p>
         <a href="{{ path('edit_message', {id: message.id}) }}">modifier</a>
+        <a href="{{ path('delete_message', {id: message.id}) }}">supprimer</a>
     {% endfor %}
-
+    <hr>
     <a href="{{ path('create_message') }}">écrire</a>
 
 {% endblock %}

@@ -64,4 +64,17 @@ final class MessageController extends AbstractController
             'formMessage' => $formMessage->createView(),
         ]);
     }
+
+
+    #[Route('/delete/{id}', name: 'delete_message')]
+    public function delete(Message $message, EntityManagerInterface $manager): Response
+    {
+        if($message)
+        {
+            $manager->remove($message);
+            $manager->flush();
+
+        }
+        return $this->redirectToRoute('messages');
+    }
 }
