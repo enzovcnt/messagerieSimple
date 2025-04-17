@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+    {% for message in messages %}
+
+        <p><strong>{{ message.content }}</strong></p>
+        <p>Created at : {{ message.createdAt|date("d/m/Y") }}</p>
+
+    {% endfor %}
+
+    <a href="{{ path('create_message') }}">écrire</a>
+
+{% endblock %}
